@@ -55,3 +55,35 @@ var inorderTraversal = function (root) {
 
     return res;
 };
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[][]}
+ */
+var levelOrder = function (root) {
+    if (!root) {
+        return [];
+    }
+    let res = [];
+    let queue = [root];
+    let res_fuck = [];
+    while (queue.length != 0) {
+        res_fuck = [];
+        count = queue.length;
+        for (var k = 0; k < count; k++) {
+            var now = queue.shift();
+            res_fuck.push(now.val);
+            now.left && queue.push(now.left);
+            now.right && queue.push(now.right);
+        }
+        res.push(res_fuck);
+    }
+    return res;
+};
