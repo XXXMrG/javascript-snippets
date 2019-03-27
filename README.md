@@ -3,5 +3,4 @@
 ----
 some useful JavaScript Snippets
 
-
-![5c9a31de36cc4.png](https://i.loli.net/2019/03/26/5c9a31de36cc4.png)
+![5c9b525556c1e.png](https://i.loli.net/2019/03/27/5c9b525556c1e.png)
