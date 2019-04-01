@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <title>Demo_TODO_List</title>
+</head>
+
+<body>
+  <div class="container">
+    <h1 class="text-center">TODO-List</h1>
+    <form class="form-inline text-center" action="#">
+      <div class="form-group">
+        <label class="col-md-5" for="textarea">In put your TODO</label>
+        <input type="text" class="form-control col-md-5" id="textarea" placeholder="Input your list">
+        <button type="submit" class="btn btn-default col-md-2" onclick="foo()">ADD</button>
+      </div>
+    </form>
+
+    <ul class="list">
+
+    </ul>
+  </div>
+
+</body>
+
+<style>
+  .form-inline {
+    margin-top: 50px;
+  }
+
+  .btn-del {
+    position: absolute;
+    right: 100px;
+  }
+
+  li {
+    margin-top: 20px;
+  }
+  .form-group {
+    display: block !important; 
+  }
+</style>
+
+<script>
+  function foo() {
+    var content = document.querySelector("#textarea");
+    var data = content.value;
+    if (!data) {
+      content.focus();
+      return;
+    }
+    content.value = "";
+    var list = document.querySelector(".list");
+    var todo = document.createElement("li");
+    var btn = document.createElement("button");
+    var res = document.createElement("span");
+    res.textContent = data;
+    btn.textContent = "DELETE";
+    btn.setAttribute("class", "btn btn-danger btn-del");
+    todo.appendChild(res);
+    todo.appendChild(btn);
+    list.appendChild(todo);
+    btn.onclick = (e) => {
+      list.removeChild(todo);
+    }
+    content.focus();
+  }
+
+</script>
+</html>
