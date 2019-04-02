@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>替换链接</title>
+</head>
+
+<body>
+  <p id="jsContainer">
+    比如https://www.baidu.com，或者 www.baidu.com?from=onlineExam，如果出现链接文
+  </p>
+</body>
+
+<script>
+  function link() {
+    var Dom = document.getElementById("jsContainer");
+    var text = Dom.textContent;
+    // 这个正则要记住哦
+    var reg = new RegExp("(http://||https://)?www.[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]", "g");
+    var text = text.replace(reg, function (result) {
+      if ((new RegExp("^www.")).test(result)) {
+        result = "http://" + result;
+      }
+      return '<a target="_blank" href=' + result + '>' + result + '</a>'
+    })
+    Dom.innerHTML = text;
+  }
+
+  link();
+</script>
+
+</html>
