@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>函数的防抖和节流</title>
+</head>
+
+<body>
+    <ul>
+        <li>fuck the world</li>
+        <li>fuck the world</li>
+        <li>fuck the world</li>
+        <li>fuck the world</li>
+        <li>fuck the world</li>
+        <li>fuck the world</li>
+        <li>fuck the world</li>
+        <li>fuck the world</li>
+        <li>fuck the world</li>
+        <li>fuck the world</li>
+        <li>fuck the world</li>
+        <li>fuck the world</li>
+        <li>fuck the world</li>
+        <li>fuck the world</li>
+        <li>fuck the world</li>
+        <li>fuck the world</li>
+        <li>fuck the world</li>
+        <li>fuck the world</li>
+        <li>fuck the world</li>
+        <li>fuck the world</li>
+
+        <div id="content"
+            style="height:150px;line-height:150px;text-align:center; color: #fff;background-color:#ccc;font-size:80px;">
+        </div>
+
+        <input type="text" class="bounce">
+
+    </ul>
+</body>
+<script>
+    /**
+     * 函数的防抖和节流
+     */
+
+     // 防抖函数
+    function debounce(fn, wait) {
+        var timeout = null;
+        return function () {
+            timeout && clearTimeout(timeout);
+            timeout = setTimeout(() => {
+                fn.call(this, arguments);
+            }, wait);
+        }
+    }
+    let num = 1;
+    let content = document.getElementById('content');
+    let myIn = document.querySelector(".bounce");
+    function handle() {
+        console.log(Math.random());
+    }
+
+    function count() {
+        content.innerHTML = num++;
+    }
+
+    function mFetch() {
+        console.log("fuck");
+    }
+
+    // 节流函数
+    function throttle(fn, wait) {
+        let canRun = true;
+        return function() {
+            if (!canRun) return;
+            // 这句话是用来防止多次重复触发的关键
+            canRun = false;
+            setTimeout(() => {
+                fn.call(this, arguments);
+                canRun = true;
+            }, wait);
+        }
+    }
+    myIn.addEventListener("input", throttle(mFetch, 500));
+    content.onmousemove = throttle(count, 1000);
+    window.addEventListener("scroll", debounce(handle, 1000));
+</script>
+
+</html>
