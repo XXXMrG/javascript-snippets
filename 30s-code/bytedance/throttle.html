@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <button class="but">fuck</button>
+</body>
+<script>
+    /* 函数节流，防止不必要的回流，实现思路是每隔一段时间执行一次 */
+
+    function throttle(fn, wait, ...rest) {
+        let flag = true;
+        return function () {
+            if (!flag) return;
+            // 这里防止不必要的重复触发，只有一次定时任务执行结束才能执行下一次
+            flag = false;
+            setTimeout(() => {
+                fn.apply(this, rest);
+                flag = true;
+            }, wait);
+        }
+    }
+
+    function add (a, b) {
+        console.log(a + b + new Date() + "");
+    }
+    let res = throttle(add, 1000, 1, 1);
+    const but = document.querySelector(".but");
+    but.addEventListener("click", res)
+
+
+</script>
+
+</html>
