@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>经典三栏布局的实现</title>
+    <style>
+        .left1 {
+            float: left;
+            width: 200px;
+            height: 400px;
+            background-color: aliceblue;
+            margin: 10px;
+        }
+
+        .middle1 {
+            background-color: brown;
+            height: 500px;
+            /*如果这里我们不生成 BFC 那么中间的布局在高度超过两边的时候就会产生塌陷，会包围起两边的布局*/
+            overflow: hidden;
+        }
+
+        .right1 {
+            float: right;
+            width: 200px;
+            height: 400px;
+            background-color: palegoldenrod;
+            margin: 10px;
+        }
+
+        .p2 {
+            display: flex;
+        }
+
+        .left2,
+        .right2 {
+            width: 200px;
+            height: 100px;
+            margin: 10px;
+            background-color: #999;
+        }
+
+        .middle2 {
+            flex: 1;
+            height: 200px;
+            margin: 10px;
+            /*左右margin不会叠加*/
+            background-color: #f00;
+        }
+
+        .p3 {
+            position: relative;
+        }
+
+        .left3 {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 200px;
+            height: 400px;
+            background-color: aquamarine;
+        }
+
+        .right3 {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 200px;
+            height: 400px;
+            background-color: aquamarine;
+        }
+
+        .middle3 {
+            background-color: antiquewhite;
+            width: auto;
+            margin: 0 220px;
+            height: 500px;
+        }
+
+        /*
+        双飞翼布局
+        为了优先显示中间主要部分，浏览器渲染引擎在构建和渲染渲染树是异步的（谁先构建好谁先显示）
+        故在编写时，先构建中间main部分，但由于布局原因，将 left 置于 center 左边，故而出现了双飞翼布局。*/
+        .col {
+            float: left;
+        }
+
+        .main {
+            width: 100%;
+            height: 150px;
+            background-color: #f00
+        }
+
+        .main-wrap {
+            margin: 0 190px;
+        }
+
+        .left4,
+        .right4 {
+            width: 190px;
+            height: 100px;
+            background-color: aqua;
+        }
+
+        .left4 {
+            margin-left: -100%;
+        }
+
+        .right4 {
+            margin-left: -190px;
+        }
+
+        /* grid 布局*/
+
+        .p5 {
+            margin-top: 80px;
+            display: grid;
+            grid-template-columns: 200px auto 200px;
+        }
+
+        .left5,
+        .right5 {
+            background-color: bisque;
+            height: 200px;
+            margin: 0 20px;
+        }
+
+        .middle5 {
+            background-color: crimson;
+            height: 300px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="p1">
+        <div class="left1">
+            left1
+        </div>
+        <div class="right1">
+            right1
+        </div>
+        <div class="middle1">
+            middle1
+        </div>
+    </div>
+
+    <div class="p2">
+        <div class="left2">
+            left2
+        </div>
+        <div class="middle2">
+            middle2
+        </div>
+        <div class="right2">
+            right2
+        </div>
+    </div>
+
+    <div class="p3">
+        <div class="left3">
+            left3
+        </div>
+        <div class="middle3">
+            middle3
+        </div>
+        <div class="right3">
+            right3
+        </div>
+    </div>
+
+    <div class="p5">
+        <div class="left5">
+            left3
+        </div>
+        <div class="middle5">
+            middle3
+        </div>
+        <div class="right5">
+            right3
+        </div>
+    </div>
+
+    <div class="p4">
+        <div class="main col">
+            <div class="main-wrap">
+                middle
+            </div>
+        </div>
+        <div class="col left4">
+            left4
+        </div>
+        <div class="col right4">
+            right4
+        </div>
+    </div>
+
+</body>
+
+</html>
