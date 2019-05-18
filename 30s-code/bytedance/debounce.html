@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <button class="but">
+        fuck
+    </button>
+</body>
+
+<script>
+    const but = document.querySelector(".but");
+
+    /*函数防抖，原理就是只有一段时间不触发时间才调用函数*/
+
+    /**
+     *
+     * @param {function} fn
+     * @param {number} wait
+     */
+    function debounce(fn, wait, ...rest) {
+        let timeout = null;
+        return function () {
+            timeout && clearTimeout(timeout);
+            timeout = setTimeout(() => {
+                fn.apply(this, rest);
+            }, wait);
+        }
+    }
+
+    function add(a, b) {
+        console.log(a + b);
+    }
+
+    let res = debounce(add, 1000, 1, 1);
+    but.addEventListener("click", res);
+</script>
+
+</html>
