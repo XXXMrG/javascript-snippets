@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>圣杯布局实现三栏</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        /* 清除 content 的浮动，让他撑起高度 */
+        .cleanfix {
+            clear: both;
+        }
+
+        .cleanfix:after {
+            content: '.';
+            clear: both;
+            display: block;
+            visibility: hidden;
+            height: 0;
+            zoom: 1;
+        }
+
+        .head,
+        .foot {
+            width: 100%;
+            height: 80px;
+        }
+
+        .head {
+            background-color: #4eb5f7;
+        }
+
+        .foot {
+            background-color: #999999;
+        }
+        /* content 内的所有元素全部设置左浮动挤到左边 */
+        .left,
+        .right,
+        .main {
+            float: left;
+        }
+        /* 左右两边使用相对布局调整 */
+        .left {
+            position: relative;
+            left: -40px;
+            width: 40px;
+            height: 60px;
+            background-color: #B9E078;
+            margin-left: -100%;
+        }
+
+        .right {
+            position: relative;
+            right: -60px;
+            width: 60px;
+            height: 80px;
+            background-color: #FF9900;
+            margin-left: -60px;
+        }
+        /* main 的宽度拉满 */
+        .main {
+            width: 100%;
+            height: 600px;
+            background-color: crimson;
+        }
+        /* 设置边距留出空白 */
+        .content {
+            padding: 0 60px 0 40px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="head">head</div>
+    <div class="content cleanfix">
+        <div class="main">main</div>
+        <div class="left">left</div>
+        <div class="right">right</div>
+    </div>
+    <div class="foot">foot</div>
+</body>
+
+</html>
