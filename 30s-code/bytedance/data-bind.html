@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>双向绑定的两种实现</title>
+</head>
+
+<body>
+    <input class="in" type="text">
+    <p class="dep"></p>
+    <p>使用 Proxy 实现双向绑定</p>
+    <input class="in2" type="text">
+    <p class="dep2"></p>
+</body>
+<script>
+    const input = document.querySelector(".in");
+    const text = document.querySelector(".dep");
+    const obj = {};
+    Object.defineProperty(obj, "value", {
+        set: function (val) {
+            text.innerHTML = val;
+            input.value = val;
+        },
+        get: function () {
+            return input.value;
+        }
+    })
+    // 绑定 set 事件
+    input.addEventListener("keyup", (e) => {
+        obj.value = e.target.value;
+    })
+
+    const input2 = document.querySelector(".in2");
+    const text2 = document.querySelector(".dep2");
+    const obj2 = {};
+    // 这里是个 Proxy 对象，拦截 obj 的 . 运算符
+    const proxyObj = new Proxy(obj, {
+        get: function(target, key, receiver) {
+            // 返回原方法的值
+            return Reflect.get(target, key, receiver);
+        },
+        set: function(target, key, value, receiver) {
+            if (key === "text") {
+                text2.innerHTML = value;
+                input2.value = value;
+            }
+            // 设置值到原对象中
+            return Reflect.set(target, key, value, receiver);
+        }
+    })
+
+    input2.addEventListener("keyup", (e) => {
+        proxyObj.text = e.target.value;
+    })
+</script>
+
+</html>
