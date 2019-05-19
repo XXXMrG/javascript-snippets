@@ -10,10 +10,7 @@ function curry (fn, ...rest) {
     let args = rest.slice();
     //console.log(args);
     return (...rest) => {
-        for (let i = 0; i < rest.length; i++) {
-            args.push(rest[i]);
-        }
-        return fn.apply(this, args);
+        return fn.apply(this, args.concat(rest));
     }
 }
 let myAdd = curry(add,1,2)(3);
