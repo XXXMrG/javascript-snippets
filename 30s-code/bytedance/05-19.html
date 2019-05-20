@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .parent {
+            width: 200px;
+            height: 200px;
+            background-color: aqua;
+        }
+
+        .child {
+            width: 50px;
+            height: 50px;
+            background-color: pink;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="parent">
+        <div class="child"></div>
+    </div>
+</body>
+<script>
+    const parent = document.querySelector(".parent");
+    const child = document.querySelector(".child");
+    parent.addEventListener("click", () => console.log(1))
+    parent.addEventListener("click", () => console.log(2), true);
+    child.addEventListener("click", () => console.log(3));
+    child.addEventListener("click", () => console.log(4), true);
+    // => 2 3 4 1
+</script>
+
+</html>
