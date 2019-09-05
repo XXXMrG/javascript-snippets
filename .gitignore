@@ -8,6 +8,10 @@
 # testing
 /coverage
 
+# vs code
+
+*.code-workspace
+
 # production
 /build
 
