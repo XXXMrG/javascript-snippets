@@ -69,3 +69,5 @@ const circleClone = (target, map = new WeakMap()) => {
 const copy = circleClone(target)
 
 console.log(copy)
+
+
