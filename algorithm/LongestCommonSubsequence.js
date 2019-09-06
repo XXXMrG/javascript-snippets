@@ -21,7 +21,6 @@ const LCS = (s1, s2) => {
       }
     }
   }
-  console.log(dp)
   return dp[m - 1][n - 1]
 }
 

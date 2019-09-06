@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    #content {
+      background-color: aqua;
+      border: 5px solid pink;
+      padding: 10px;
+      height: 9999px;
+    }
+
+    #top {
+      width: 100px;
+      height: 100px;
+      position: fixed;
+      bottom: 20px;
+      right: 25px;
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="content">top</div>
+  <button id="top">TOP</button>
+</body>
+<script>
+  // 节流函数
+  const throttle = (fn, wait) => {
+    let canRun = true;
+    return function () {
+      if (!canRun) return;
+      // 这句话是用来防止多次重复触发的关键
+      canRun = false;
+      setTimeout(() => {
+        fn.call(this, arguments);
+        canRun = true;
+      }, wait);
+    }
+  }
+  const handleScroll = e => {
+    const pos = document.documentElement.scrollTop
+    const top = document.querySelector('#top')
+    if (pos > 1000) {
+      top.style.display = 'block'
+    } else {
+      top.style.display = 'none'
+    }
+  }
+  window.addEventListener('scroll', throttle(handleScroll, 500))
+  top.addEventListener('click', e => {
+    window.scrollBy({
+      top: -document.documentElement.scrollTop,
+      left: 0,
+      behavior: "smooth"
+    })
+  })
+</script>
+
+</html>
