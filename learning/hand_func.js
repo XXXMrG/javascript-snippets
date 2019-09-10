@@ -79,6 +79,7 @@ function myNew(func) {
         res.__proto__ = func.prototype;
     }
     // 这里去掉参数数组中的第一个元素同样可以通过 ... 来实现
+    // 这里绑定 this
     var ret = func.apply(res, Array.prototype.slice.call(arguments, 1));
     // 如果构造函数返回一个对象，那么返回这个对象
     if (
