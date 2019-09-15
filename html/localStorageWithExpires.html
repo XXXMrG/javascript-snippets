@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>给 localStorage 加上过期时间吧！</title>
+</head>
+
+<body>
+  <label for="put">set a localStorage</label>
+  <input id="put">
+  <button id="addValue">add to localStorage</button>
+  <button id="check">check the localStorage</button>
+</body>
+<script>
+  const input = document.querySelector('#put')
+  const add = document.querySelector('#addValue')
+  const check = document.querySelector('#check')
+  add.addEventListener('click', (e) => {
+    const value = input.value
+    const obj = {
+      value,
+      expire: new Date().getTime() + 10000
+    }
+    localStorage.setItem('key', JSON.stringify(obj))
+  })
+  check.addEventListener('click', e => {
+    const value = JSON.parse(localStorage.getItem('key'))
+    if (value && value.expire) {
+      if (new Date() >= value.expire) {
+        localStorage.removeItem('key')
+      } else {
+        console.log(value.value)
+      }
+    } else {
+      console.log('过期啦')
+    }
+  })
+</script>
+
+</html>
