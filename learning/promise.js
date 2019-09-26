@@ -72,6 +72,7 @@ function Promise(excutor) {
 
 /**
  * 对resolve 进行改造增强 针对resolve中不同值情况 进行处理
+ * 为了兼容各种 promise 的实现 只要返回是个 thenable 就行
  * @param  {promise} promise2 promise1.then方法返回的新的promise对象
  * @param  {[type]} x         promise1中onFulfilled的返回值
  * @param  {[type]} resolve   promise2的resolve方法
@@ -143,7 +144,7 @@ function resolvePromise(promise2, x, resolve, reject) {
 Promise.prototype.then = function(onFulfilled, onRejected) {
   const that = this
   let newPromise
-  // 处理参数默认值 保证参数后续能够继续执行
+  // 处理参数默认值 保证参数后续能够继续执行 实现穿透
   onFulfilled = typeof onFulfilled === 'function' ? onFulfilled : value => value
   onRejected =
     typeof onRejected === 'function'
@@ -241,6 +242,21 @@ Promise.all = function(promises) {
   })
 }
 
+const all = promises => {
+  return new Promise((resolve, reject) => {
+    let L = promises.length
+    let result = []
+    promises.forEach((promise, index) => {
+      promise.then(value => {
+        result.push(value)
+        if (index === L - 1) {
+          resolve(result)
+        }
+      }, reject)
+    })
+  })
+}
+
 function gen(length, resolve) {
   let count = 0
   let values = []
@@ -291,7 +307,7 @@ Promise.reject = function(reason) {
  * - Deferred 具备对 Promise的状态进行操作的特权方法（resolve reject）
  *
  *参考jQuery.Deferred
- *url: http://api.jquery.com/category/deferred-object/
+ *url: http://api.jquery.com/category/deferred-object/ 
  */
 Promise.deferred = function() {
   // 延迟对象
@@ -301,6 +317,16 @@ Promise.deferred = function() {
     defer.reject = reject
   })
   return defer
+}
+
+Promise.prototype.finally = function(callback) {
+  let P = this.constructor
+  return this.then(
+    value => P.resolve(callback()).then(() => value),
+    reason => P.resolve(callback()).then(() => {
+      throw reason
+    })
+  )
 }
 
 /**

@@ -15,6 +15,7 @@ const observer = new IntersectionObserver(entries => {
     console.log(item.isIntersecting)
     if (item.isIntersecting) {
       item.target.src = item.target.dataset.origin
+      item.target.textContent
       observer.unobserve(item.target)
     }
   })
@@ -23,3 +24,7 @@ const observer = new IntersectionObserver(entries => {
 })
 
 images.forEach(item => observer.observe(item))
+
+parent.addEventListener('mouseenter', e => {
+  console.log(e)
+})
