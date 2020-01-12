@@ -11,5 +11,5 @@ let fastFactorial = memoized((n) => {
     return n * fastFactorial(n - 1);
 })
 
-var res = fastFactorial(10);
-console.log();
+var res = fastFactorial(1);
+console.log(res);
